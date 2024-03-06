@@ -22,6 +22,8 @@ import time
 
 t_start = time.time()
 
+print("Starting experiment:", t_start)
+
 physical_devices = tf.config.list_physical_devices('GPU')
 for dev in physical_devices:
     tf.config.experimental.set_memory_growth(dev, True)
