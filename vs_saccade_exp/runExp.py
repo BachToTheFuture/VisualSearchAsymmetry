@@ -3,6 +3,9 @@
 
 # In[1]:
 
+# NOTE: this file is important as it runs the actual saccade experiment
+# NOTE: Figure S16-18 in paper
+
 import sys
 sys.path.insert(0, "../")
 
@@ -63,8 +66,11 @@ for model_desc in ecc_models:
         I_data = np.zeros((NumStimuli, 1), dtype=int)
         CP = np.zeros((NumStimuli, NumFix), dtype=int)
 
+        # NOTE: num stimuli is the number objects to search through
         for i in tqdm(range(NumStimuli), desc=task):
             stim_path, gt_path, tar_path = get_data_paths(task, i)
+
+            # NOTE: `saccade` is an array of all the saccades made to find the object i
             saccade = vsm.start_search(stim_path, tar_path, gt_path)
 
             j = saccade.shape[0]

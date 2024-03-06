@@ -25,6 +25,7 @@ def remove_attn(mask, x, y, ior_size=None, gt_mask=None):
     """
     To apply inhibition of return (IoR) on an object/place which has been attended by the model.
     """
+    # NOTE: in other words, prevent the model from looking in the same place
 
     if gt_mask is None:
         mask[:, (x - int(ior_size/2)):(x + int(ior_size/2)), (y - int(ior_size/2)):(y + int(ior_size/2)), :] = 0
@@ -134,14 +135,19 @@ class VisualSearchModel:
         mask = np.ones(stimuli.shape)
 
         saccade = []
+        # NOTE: saccading starts at the center of the image.
         (x, y) = int(stimuli.shape[1]/2), int(stimuli.shape[2]/2)
         saccade.append((x, y))
 
         attn_maps = []
         vis_area_crop = []
 
+        # NOTE: k and self.NumFix is where we can change the number of fixations.
+        # Is NumFix the maximum number of fixations allowed per experiment?
+        # Doesn't this technically mean we've already handled naive fixation?
         for k in range(self.NumFix):
             if self.gt_mask is None:
+                # NOTE: Break if we find the object!
                 if recog(saccade[-1][0], saccade[-1][1], gt, self.ior_size):
                     break
                 mask = remove_attn(mask, saccade[-1][0], saccade[-1][1], self.ior_size, self.gt_mask)
@@ -203,6 +209,7 @@ class VisualSearchModel:
                 temp_vis_area = np.copy((stimuli)[0, saccade[-1][0]-self.eye_res-self.corner_bias:saccade[-1][0]+self.eye_res+self.corner_bias, saccade[-1][1]-self.eye_res-self.corner_bias:saccade[-1][1]+self.eye_res+self.corner_bias, :])
                 vis_area_crop.append(temp_vis_area)
 
+            # NOTE: Get the actual fixation locations of the saccade and append to saccade array!
             (x, y) = np.unravel_index(np.argmax(out), out.shape)
             fxn_x, fxn_y = saccade[-1][0]-self.eye_res-self.corner_bias+x, saccade[-1][1]-self.eye_res-self.corner_bias+y
             fxn_x, fxn_y = max(fxn_x, self.eye_res+self.corner_bias), max(fxn_y, self.eye_res+self.corner_bias)
@@ -226,6 +233,7 @@ class VisualSearchModel:
         """
         Creates convolutional window using the target image to apply top-down modulation on the search image.
         """
+        # NOTE: top-down modulation is essentially like a top down attention map?
 
         target = loadimg(tar_path, target_size=(self.tar_shape[0], self.tar_shape[1]), rev_img_flag=self.rev_img_flag)
         target = preprocess_input(target)
@@ -234,6 +242,7 @@ class VisualSearchModel:
 
         MMconv_l = []
 
+        # Apply top down convolution for attention map?
         for i in range(len(op_stimuli_l)):
             op_target = op_target_l[i]
             op_stimuli = op_stimuli_l[i]

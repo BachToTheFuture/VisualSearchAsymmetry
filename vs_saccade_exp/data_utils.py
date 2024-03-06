@@ -8,6 +8,7 @@ def get_data_paths(task, i):
 
     return stim_path, gt_path, tar_path
 
+# NOTE: this function gets some hardcoded data.
 def get_exp_info(task):
     s_ratio = None
     if task == "NaturalDesign":
@@ -27,8 +28,8 @@ def get_exp_info(task):
         s_ratio = (1024/stim_shape[0], 1280/stim_shape[1])
         tar_shape = (32, 32, 3)
         ior_size = 2*tar_shape[0]
-        NumStimuli = 67
-        NumFix = 81
+        NumStimuli = 67 # NOTE: number of stimuli but what does this mean?
+        NumFix = 81 # NOTE: number of fixations?
         gt_mask = None
         fix = None
         weight_pattern = 'l'
