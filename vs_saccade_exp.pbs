@@ -1,0 +1,14 @@
+#PBS -N pycuda
+#PBS -W umask=022
+#PBS -q midgpu
+#PBS -l ncpus=1
+#PBS -l ngpus=1
+#PBS -l mem=10gb
+#PBS -j oe
+
+module load python
+module load cuda10.2/toolkit
+
+cd bach/VisualSearchAsymmetry
+conda activate vsa_nips_klab
+bash runExp_saccade.sh
