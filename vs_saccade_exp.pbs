@@ -1,9 +1,9 @@
 #PBS -N vs_saccade_exp
 #PBS -W umask=022
-#PBS -q midgpu
+#PBS -q biggpu
 #PBS -l ncpus=10
 #PBS -l ngpus=2
-#PBS -l mem=32gb
+#PBS -l mem=250gb
 #PBS -j oe
 #PBS -m bea
 #PBS -M bxnguyen@college.harvard.edu
