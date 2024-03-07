@@ -3,7 +3,7 @@
 #PBS -q midgpu
 #PBS -l ncpus=1
 #PBS -l ngpus=1
-#PBS -l mem=10gb
+#PBS -l mem=32gb
 #PBS -j oe
 #PBS -m bea
 #PBS -M bxnguyen@college.harvard.edu
