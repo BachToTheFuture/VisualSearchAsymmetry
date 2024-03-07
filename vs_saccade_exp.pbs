@@ -5,8 +5,8 @@
 #PBS -l ngpus=1
 #PBS -l mem=10gb
 #PBS -j oe
+#PBS -M bxnguyen@college.harvard.edu
 
-module load python
 module load cuda10.2/toolkit
 
 cd bach/VisualSearchAsymmetry
