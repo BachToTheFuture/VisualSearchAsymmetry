@@ -1,12 +1,13 @@
 #PBS -N vs_saccade_exp
 #PBS -W umask=022
 #PBS -q biggpu
-#PBS -l ncpus=10
+#PBS -l ncpus=16
 #PBS -l ngpus=2
-#PBS -l mem=16gb
+#PBS -l mem=32gb
 #PBS -j oe
 #PBS -m bea
 #PBS -M bxnguyen@college.harvard.edu
+#PBS -l walltime=8:00:00
 
 module load python
 module load cuda10.2/toolkit
