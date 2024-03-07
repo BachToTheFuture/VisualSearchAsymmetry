@@ -12,7 +12,5 @@ module load python
 module load cuda10.2/toolkit
 
 cd bach/VisualSearchAsymmetry
-conda init
-conda env create -f environment.yml
-conda activate vsa_nips_klab
+source activate vsa_nips_klab
 bash runExp_saccade.sh
